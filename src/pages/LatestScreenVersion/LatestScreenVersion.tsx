@@ -14,11 +14,15 @@ import { ErrorResponse, Layer, ScreenVersion } from "@zeplin/sdk";
 import Layout from "../../components/Layout";
 import { zeplinClient } from "../../zeplinClient";
 import DeplinLayer from "../../components/DeplinLayer";
+import { DlLayer } from "../../types";
 
 const LatestScreenVersion: FC<{}> = () => {
   const { projectId = "", screenId = "" } = useParams();
   const theme = useMantineTheme();
-  const [selectedLayer, setSelectedLayer] = useState<Layer | undefined>(
+  const [selectedLayer, setSelectedLayer] = useState<DlLayer | undefined>(
+    undefined
+  );
+  const [hoverredLayer, setHoverredLayer] = useState<DlLayer | undefined>(
     undefined
   );
 
@@ -40,11 +44,17 @@ const LatestScreenVersion: FC<{}> = () => {
   const layers = useMemo(() => {
     if (!screenVersion) return [];
 
-    let result: Layer[] = [];
+    let result: DlLayer[] = [];
 
     function recusiveMerge(data: Layer) {
       if (data?.layers?.length) {
-        result = [...result, ...data.layers];
+        result = [
+          ...result,
+          ...data.layers.map((item) => ({
+            ...item,
+            parent: data.type && data,
+          })),
+        ];
         data?.layers?.forEach((item: any) => recusiveMerge(item));
       }
     }
@@ -52,7 +62,7 @@ const LatestScreenVersion: FC<{}> = () => {
     recusiveMerge(screenVersion as any);
 
     return result;
-  }, [screenVersion]) as Layer[];
+  }, [screenVersion]) as DlLayer[];
 
   console.log("layers", layers);
 
@@ -88,6 +98,7 @@ const LatestScreenVersion: FC<{}> = () => {
                 data={layer}
                 selected={selectedLayer?.id === layer.id}
                 onSelect={setSelectedLayer}
+                onHover={(data) => !!selectedLayer && setHoverredLayer(data)}
               />
             ))}
           </div>
