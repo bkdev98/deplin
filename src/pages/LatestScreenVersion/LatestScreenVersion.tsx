@@ -15,6 +15,7 @@ import Layout from "../../components/Layout";
 import { zeplinClient } from "../../zeplinClient";
 import DeplinLayer from "../../components/DeplinLayer";
 import { DlLayer } from "../../types";
+import Ruler from "./Ruler";
 
 const LatestScreenVersion: FC<{}> = () => {
   const { projectId = "", screenId = "" } = useParams();
@@ -64,8 +65,6 @@ const LatestScreenVersion: FC<{}> = () => {
     return result;
   }, [screenVersion]) as DlLayer[];
 
-  console.log("layers", layers);
-
   return (
     <Layout
       aside={
@@ -101,6 +100,9 @@ const LatestScreenVersion: FC<{}> = () => {
                 onHover={(data) => !!selectedLayer && setHoverredLayer(data)}
               />
             ))}
+            {selectedLayer && hoverredLayer && (
+              <Ruler mainLayer={selectedLayer} targetLayer={hoverredLayer} />
+            )}
           </div>
         )}
       </Center>
