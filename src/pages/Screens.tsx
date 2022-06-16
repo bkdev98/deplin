@@ -1,9 +1,7 @@
 import {
   Card,
   Center,
-  Group,
   Image,
-  Loader,
   SimpleGrid,
   Text,
   useMantineTheme,
@@ -14,11 +12,12 @@ import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 
 import Layout from "../components/Layout";
-import { zeplinClient } from "../zeplinClient";
+import useZeplinClient from "../utils/useZeplinClient";
 
 const Screens: FC<{}> = () => {
   const { projectId = "" } = useParams();
   const theme = useMantineTheme();
+  const zeplinClient = useZeplinClient();
 
   const { data: screens, isLoading } = useQuery<
     { data: Screen[] },
@@ -35,10 +34,6 @@ const Screens: FC<{}> = () => {
 
   return (
     <Layout>
-      <Group mb={theme.spacing.lg}>
-        <Text>Screens</Text>
-        {isLoading && <Loader size="sm" />}
-      </Group>
       <SimpleGrid cols={5}>
         {screens?.map((screen) => (
           <Card

@@ -1,10 +1,9 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import {
   Badge,
   Card,
   Group,
   Image,
-  Loader,
   SimpleGrid,
   Text,
   useMantineTheme,
@@ -14,9 +13,10 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 
 import Layout from "../components/Layout";
-import { zeplinClient } from "../zeplinClient";
+import useZeplinClient from "../utils/useZeplinClient";
 
 const Projects: FC<{}> = () => {
+  const zeplinClient = useZeplinClient();
   const { data: projects, isLoading } = useQuery<
     { data: Project[] },
     ErrorResponse,
@@ -29,10 +29,6 @@ const Projects: FC<{}> = () => {
 
   return (
     <Layout>
-      <Group mb={theme.spacing.lg}>
-        <Text>Projects</Text>
-        {isLoading && <Loader size="sm" />}
-      </Group>
       <SimpleGrid cols={5}>
         {projects?.map((project) => (
           <Card

@@ -3,9 +3,6 @@ import {
   Aside,
   Center,
   createStyles,
-  Group,
-  Loader,
-  Text,
   useMantineTheme,
 } from "@mantine/core";
 import { useParams } from "react-router-dom";
@@ -13,12 +10,12 @@ import { useQuery } from "react-query";
 import { ErrorResponse, Layer, ScreenVersion } from "@zeplin/sdk";
 
 import Layout from "../../components/Layout";
-import { zeplinClient } from "../../zeplinClient";
 import DeplinLayer from "../../components/DeplinLayer";
 import { DlLayer } from "../../types";
 import Rulers from "./Rulers";
 import Distances from "./Distances";
 import LayerDetail from "./LayerDetail";
+import useZeplinClient from "../../utils/useZeplinClient";
 
 const useStyles = createStyles((theme) => ({
   overlay: {
@@ -32,6 +29,7 @@ const useStyles = createStyles((theme) => ({
 }))
 
 const LatestScreenVersion: FC<{}> = () => {
+  const zeplinClient = useZeplinClient();
   const { projectId = "", screenId = "" } = useParams();
   const theme = useMantineTheme();
   const { classes } = useStyles();
@@ -86,10 +84,6 @@ const LatestScreenVersion: FC<{}> = () => {
         </Aside>
       }
     >
-      <Group mb={theme.spacing.lg}>
-        <Text>LatestScreenVersion</Text>
-        {isLoading && <Loader size="sm" />}
-      </Group>
       <Center style={{ position: 'relative' }} p={theme.spacing.lg}>
         <div
           className={classes.overlay}

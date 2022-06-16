@@ -39,12 +39,12 @@ const LayerDetail: FC<LayerDetailProps> = ({ data }) => {
             <SimpleGrid cols={2} p='md'>
                 <Box>
                     <Text color='gray' size='sm' inline>
-                        X: {data.rect.absolute.x}pt
+                        X: {Number(data.rect.absolute.x.toFixed(1))}pt
                     </Text>
                 </Box>
                 <Box>
                     <Text color='gray' size='sm' inline>
-                        Y: {data.rect.absolute.y}pt
+                        Y: {Number(data.rect.absolute.y.toFixed(1))}pt
                     </Text>
                 </Box>
                 <Box>
@@ -76,7 +76,11 @@ const LayerDetail: FC<LayerDetailProps> = ({ data }) => {
                                 <Code key={item.color.sourceId} color='gray'>{getRGBColor(item.color)}</Code>
                             </Box>
                         )
-                        : <Code>{JSON.stringify(item.gradient)}</Code>)}
+                        : (
+                            <Box px='md'>
+                                <Code>{JSON.stringify(item.gradient)}</Code>
+                            </Box>
+                        ))}
                 </>
             )}
             {!!data.textStyles?.length && (
@@ -96,11 +100,11 @@ const LayerDetail: FC<LayerDetailProps> = ({ data }) => {
                                         Size: {item.style?.fontSize}
                                     </Text>
                                 </Box>
-                                <Box>
+                                {!!item.style?.textAlign && <Box>
                                     <Text color='gray' size='sm' inline style={{textTransform: 'capitalize'}}>
                                         Align: {item.style?.textAlign}
                                     </Text>
-                                </Box>
+                                </Box>}
                                 <Box>
                                     <Text color='gray' size='sm' inline>
                                         Line Height: {item.style?.lineHeight}

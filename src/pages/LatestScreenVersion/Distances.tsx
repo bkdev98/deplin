@@ -143,7 +143,7 @@ const Distances: FC<DistancesProps> = ({ mainLayer, targetLayer }) => {
           style={dt}
         >
           <div className={classes.value}>
-            <Text size="xs">{dt.height}pt</Text>
+            <Text size="xs">{Number(dt.height.toFixed(1))}pt</Text>
           </div>
         </div>
       )}
@@ -153,7 +153,7 @@ const Distances: FC<DistancesProps> = ({ mainLayer, targetLayer }) => {
           style={dr}
         >
           <div className={classes.value}>
-            <Text size="xs">{dr.width}pt</Text>
+            <Text size="xs">{Number(dr.width.toFixed(1))}pt</Text>
           </div>
         </div>
       )}
@@ -163,7 +163,7 @@ const Distances: FC<DistancesProps> = ({ mainLayer, targetLayer }) => {
           style={db}
         >
           <div className={classes.value}>
-            <Text size="xs">{db.height}pt</Text>
+            <Text size="xs">{Number(db.height.toFixed(1))}pt</Text>
           </div>
         </div>
       )}
@@ -173,7 +173,7 @@ const Distances: FC<DistancesProps> = ({ mainLayer, targetLayer }) => {
           style={dl}
         >
           <div className={classes.value}>
-            <Text size="xs">{dl.width}pt</Text>
+            <Text size="xs">{Number(dl.width.toFixed(1))}pt</Text>
           </div>
         </div>
       )}

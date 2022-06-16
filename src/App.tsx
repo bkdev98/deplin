@@ -4,25 +4,31 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Projects from "./pages/Projects";
 import LatestScreenVersion from "./pages/LatestScreenVersion";
 import Screens from "./pages/Screens";
+import AuthProvider from "./context/AuthProvider";
+import RequireAuth from "./components/RequireAuth";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <MantineProvider withGlobalStyles withNormalizeCSS>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Projects />} />
-            <Route path="/:projectId" element={<Screens />} />
-            <Route
-              path="/:projectId/:screenId"
-              element={<LatestScreenVersion />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </MantineProvider>
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <MantineProvider withGlobalStyles withNormalizeCSS>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<RequireAuth><Projects /></RequireAuth>} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/:projectId" element={<RequireAuth><Screens /></RequireAuth>} />
+              <Route
+                path="/:projectId/:screenId"
+                element={<RequireAuth><LatestScreenVersion /></RequireAuth>}
+              />
+            </Routes>
+          </BrowserRouter>
+        </MantineProvider>
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
