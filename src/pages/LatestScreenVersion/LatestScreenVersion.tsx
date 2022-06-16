@@ -15,7 +15,8 @@ import Layout from "../../components/Layout";
 import { zeplinClient } from "../../zeplinClient";
 import DeplinLayer from "../../components/DeplinLayer";
 import { DlLayer } from "../../types";
-import Ruler from "./Ruler";
+import Rulers from "./Rulers";
+import Distances from "./Distances";
 
 const LatestScreenVersion: FC<{}> = () => {
   const { projectId = "", screenId = "" } = useParams();
@@ -83,8 +84,8 @@ const LatestScreenVersion: FC<{}> = () => {
           <div
             style={{
               border: `1px solid ${theme.colors.gray[2]}`,
-              width: screenVersion.width,
-              height: screenVersion.height,
+              width: screenVersion.width + 2,
+              height: screenVersion.height + 2,
               backgroundColor: `rgba(${screenVersion.backgroundColor?.r}, ${screenVersion.backgroundColor?.g}, ${screenVersion.backgroundColor?.b}, ${screenVersion.backgroundColor?.a})`,
               backgroundImage: `url("${screenVersion.imageUrl}")`,
               backgroundSize: "contain",
@@ -100,8 +101,11 @@ const LatestScreenVersion: FC<{}> = () => {
                 onHover={(data) => !!selectedLayer && setHoverredLayer(data)}
               />
             ))}
+            {selectedLayer && (
+              <Rulers layer={selectedLayer} />
+            )}
             {selectedLayer && hoverredLayer && (
-              <Ruler mainLayer={selectedLayer} targetLayer={hoverredLayer} />
+              <Distances mainLayer={selectedLayer} targetLayer={hoverredLayer} />
             )}
           </div>
         )}
