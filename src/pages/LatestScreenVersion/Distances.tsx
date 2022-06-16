@@ -49,7 +49,7 @@ const Distances: FC<DistancesProps> = ({ mainLayer, targetLayer }) => {
   const { classes } = useStyles()
 
   /**
-   * Main ruler
+   * Main rulers
    */
   const mt = mainLayer.rect.absolute.y
   const mr = mainLayer.rect.absolute.x + mainLayer.rect.width

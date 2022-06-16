@@ -2,6 +2,7 @@ import { FC, useMemo, useState } from "react";
 import {
   Aside,
   Center,
+  createStyles,
   Group,
   Loader,
   Text,
@@ -17,10 +18,23 @@ import DeplinLayer from "../../components/DeplinLayer";
 import { DlLayer } from "../../types";
 import Rulers from "./Rulers";
 import Distances from "./Distances";
+import LayerDetail from "./LayerDetail";
+
+const useStyles = createStyles((theme) => ({
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: theme.colors.gray[1],
+  },
+}))
 
 const LatestScreenVersion: FC<{}> = () => {
   const { projectId = "", screenId = "" } = useParams();
   const theme = useMantineTheme();
+  const { classes } = useStyles();
   const [selectedLayer, setSelectedLayer] = useState<DlLayer | undefined>(
     undefined
   );
@@ -40,8 +54,6 @@ const LatestScreenVersion: FC<{}> = () => {
       select: (result) => result.data,
     }
   );
-
-  console.log(screenVersion);
 
   const layers = useMemo(() => {
     if (!screenVersion) return [];
@@ -69,9 +81,8 @@ const LatestScreenVersion: FC<{}> = () => {
   return (
     <Layout
       aside={
-        <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-          <Text>Selected Layer</Text>
-          <Text>{JSON.stringify(selectedLayer)}</Text>
+        <Aside hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
+          <LayerDetail data={selectedLayer} />
         </Aside>
       }
     >
@@ -79,7 +90,11 @@ const LatestScreenVersion: FC<{}> = () => {
         <Text>LatestScreenVersion</Text>
         {isLoading && <Loader size="sm" />}
       </Group>
-      <Center>
+      <Center style={{ position: 'relative' }} p={theme.spacing.lg}>
+        <div
+          className={classes.overlay}
+          onClick={() => setSelectedLayer(undefined)}
+        />
         {screenVersion && (
           <div
             style={{
