@@ -1,10 +1,11 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import {
   Badge,
   Card,
   Group,
   Image,
   SimpleGrid,
+  Skeleton,
   Text,
   useMantineTheme,
 } from "@mantine/core";
@@ -30,6 +31,13 @@ const Projects: FC<{}> = () => {
   return (
     <Layout>
       <SimpleGrid cols={5}>
+        {isLoading && !(projects as any)?.length && [1, 2, 3, 4, 5, 6, 7].map((item) => (
+          <Skeleton
+            key={item}
+            visible={isLoading && !(projects as any)?.length}
+            height={230}
+          />
+        ))}
         {projects?.map((project) => (
           <Card
             key={project.id}

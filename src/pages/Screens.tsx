@@ -3,6 +3,7 @@ import {
   Center,
   Image,
   SimpleGrid,
+  Skeleton,
   Text,
   useMantineTheme,
 } from "@mantine/core";
@@ -35,6 +36,13 @@ const Screens: FC<{}> = () => {
   return (
     <Layout>
       <SimpleGrid cols={5}>
+        {isLoading && !(screens as any)?.length && [1, 2, 3, 4, 5, 6, 7].map((item) => (
+          <Skeleton
+            key={item}
+            visible={isLoading && !(screens as any)?.length}
+            height={570}
+          />
+        ))}
         {screens?.map((screen) => (
           <Card
             key={screen.id}

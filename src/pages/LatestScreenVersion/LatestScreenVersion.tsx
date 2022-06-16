@@ -3,6 +3,7 @@ import {
   Aside,
   Center,
   createStyles,
+  Skeleton,
   useMantineTheme,
 } from "@mantine/core";
 import { useParams } from "react-router-dom";
@@ -89,6 +90,9 @@ const LatestScreenVersion: FC<{}> = () => {
           className={classes.overlay}
           onClick={() => setSelectedLayer(undefined)}
         />
+        {(!!isLoading || !screenVersion) && (
+          <Skeleton width={375} height={814} visible={(!!isLoading || !screenVersion)} />
+        )}
         {screenVersion && (
           <div
             style={{
