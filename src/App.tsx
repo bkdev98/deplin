@@ -19,9 +19,9 @@ function App() {
             <Routes>
               <Route path="/" element={<RequireAuth><Projects /></RequireAuth>} />
               <Route path="/auth" element={<Auth />} />
-              <Route path="/:projectId" element={<RequireAuth><Screens /></RequireAuth>} />
+              <Route path="/project/:projectId" element={<RequireAuth><Screens /></RequireAuth>} />
               <Route
-                path="/:projectId/:screenId"
+                path="/project/:projectId/screen/:screenId"
                 element={<RequireAuth><LatestScreenVersion /></RequireAuth>}
               />
             </Routes>

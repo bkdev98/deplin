@@ -39,12 +39,12 @@ const Breadcrumbs: FC<BreadcrumbsProps> = () => {
                 Deplin
             </Anchor>
             {!!projectId && (
-                <Anchor component={Link} to={`/${projectId}`}>
+                <Anchor component={Link} to={`/project/${projectId}`}>
                     {project?.name || ''}
                 </Anchor>
             )}
             {!!projectId && !!screenId && (
-                <Anchor component={Link} to={`/${projectId}/${screenId}`}>
+                <Anchor component={Link} to={`/project/${projectId}/screen/${screenId}`}>
                     {screen?.name}
                 </Anchor>
             )}

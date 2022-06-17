@@ -49,7 +49,7 @@ const Screens: FC<{}> = () => {
             shadow="sm"
             p="xs"
             component={Link}
-            to={`${screen.id}`}
+            to={`screen/${screen.id}`}
           >
             <Center style={{ flexDirection: "column" }}>
               <Card.Section mb={theme.spacing.sm}>

@@ -44,7 +44,7 @@ const Projects: FC<{}> = () => {
             shadow="sm"
             p="lg"
             component={Link}
-            to={`${project.id}`}
+            to={`project/${project.id}`}
           >
             <Card.Section>
               <Image src={project.thumbnail} height={160} alt={project.name} />
