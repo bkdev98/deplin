@@ -26,7 +26,7 @@ const Screens: FC<{}> = () => {
     Screen[]
   >(
     ["screens", projectId],
-    () => zeplinClient.screens.getProjectScreens(projectId),
+    () => zeplinClient.screens.getProjectScreens(projectId, {limit: 100}),
     {
       enabled: !!projectId,
       select: (result) => result.data,

@@ -22,7 +22,7 @@ const Projects: FC<{}> = () => {
     { data: Project[] },
     ErrorResponse,
     Project[]
-  >(["projects"], () => zeplinClient.projects.getProjects(), {
+  >(["projects"], () => zeplinClient.projects.getProjects({limit: 100}), {
     select: (result) => result.data,
   });
 
